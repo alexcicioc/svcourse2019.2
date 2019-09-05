@@ -1,0 +1,23 @@
+#board {
+    background-image: url('moara.png');
+    width: 960px;
+    height: 960px;
+    margin: auto;
+}
+
+.dot {
+    width: 69px;
+    height: 69px;
+}
+
+#row1 {
+    width: 800px;
+    height: 800px;
+
+    display: flex;
+    justify-content: space-between;
+}
+map area {
+    border: 1px solid red;
+    background: aqua;
+}

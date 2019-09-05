@@ -1,72 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Move Car In HTML5</title>
-    <!-- Written by Hirndra sisodiya  for the authorcode.com-->
-
+    <title>Moara</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<canvas id="myCanvas" width="650px" height="400px" style="border: 1px solid;">
-</canvas>
+<div id="board">
+    <img src="moara.png" usemap="#image-map">
 
+    <map name="image-map">
+        <area target="" alt="" title="" href="" coords="132,135,34" shape="circle">
+        <area target="" alt="" title="" href="" coords="480,135,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="236,237,33" shape="circle">
+        <area target="" alt="" title="" href="" coords="828,134,34" shape="circle">
+        <area target="" alt="" title="" href="" coords="482,238,36" shape="circle">
+        <area target="" alt="" title="" href="" coords="724,237,33" shape="circle">
+        <area target="" alt="" title="" href="" coords="339,342,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="481,342,33" shape="circle">
+        <area target="" alt="" title="" href="" coords="623,342,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="131,484,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="234,485,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="339,485,34" shape="circle">
+        <area target="" alt="" title="" href="" coords="623,484,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="726,484,36" shape="circle">
+        <area target="" alt="" title="" href="" coords="827,482,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="339,625,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="481,626,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="623,627,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="234,728,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="482,728,36" shape="circle">
+        <area target="" alt="" title="" href="" coords="724,728,34" shape="circle">
+        <area target="" alt="" title="" href="" coords="131,830,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="481,830,35" shape="circle">
+        <area target="" alt="" title="" href="" coords="828,830,34" shape="circle">
+    </map>
+</div>
 
-<script type="text/javascript">
-    const canvas = document.getElementById("myCanvas");
-    const ctx = canvas.getContext("2d");
-    const ship = makeShip(50, 60);
-    const alien = makeAlien(200, 60);
-
-    function makeShip(x, y) {
-        ctx.beginPath();
-        ctx.fillRect(x, y, 10, 30);
-        ctx.fillRect(x + 10, y + 10, 10, 10);
-        ctx.closePath();
-
-        const image = ctx.getImageData(x, y, 30, 30);
-
-        return image;
-    }
-
-    function makeAlien(x, y) {
-        ctx.beginPath();
-        ctx.fillRect(x, y, 10, 30);
-        ctx.fillRect(x + 10, y, 10, 30);
-        ctx.fillRect(x - 10, y + 30, 10, 10);
-        ctx.fillRect(x - 10, y - 10, 10, 10);
-        ctx.closePath();
-
-        const image = ctx.getImageData(x-10, y-10, 30, 50);
-
-        return image;
-    }
-
-    var next = 35;
-
-    window.addEventListener('keydown', moveobj, true);
-
-    function moveobj(evt) {
-        switch (evt.keyCode) {
-            case 37:
-                if (next < 20) {
-                    return;
-                }
-                next = next - 5;
-                break;
-            case 39:
-                if (next > 650) {
-                    return;
-                }
-                next = next + 5;
-                break;
-        }
-        ctx.fillStyle = "#ffffff";
-        ctx.rect(0, 5, 650, 400);
-        ctx.fill();
-        ctx.putImageData(ship, next, 50);
-        console.log(ship);
-        ctx.putImageData(alien, 190, 50);
-
-    }
-</script>
 </body>
 </html>
