@@ -38,6 +38,35 @@
 <script src="jquery.js"></script>
 <script>
     const board = $('#board');
+    const nodes = {
+        A: ['B', 'J'],
+        B: ['A', 'C', 'E'],
+        C: ['B', 'O'],
+        D: ['E', 'K'],
+        E: ['B', 'H', 'D', 'F'],
+        F: ['E', 'N'],
+        G: ['H', 'L'],
+        H: ['E', 'G', 'I'],
+        I: ['H', 'M'],
+        J: ['A', 'W', 'K'],
+        K: ['D', 'T', 'J', 'L'],
+        L: ['G', 'P', 'K'],
+        M: ['I', 'S', 'N'],
+        N: ['F', 'V', 'M', 'O'],
+        O: ['C', 'Y', 'N'],
+        P: ['L', 'R'],
+        R: ['P', 'S', 'U'],
+        S: ['M', 'R'],
+        T: ['K', 'U'],
+        U: ['R', 'X', 'T', 'V'],
+        V: ['U', 'N'],
+        W: ['J', 'X'],
+        X: ['U', 'W', 'Y'],
+        Y: ['X', 'O'],
+    };
+
+    const pieces = {};
+
     const displayNodeNames = function () {
         const element = $(this);
         const div = $('<div class="node">' + element.attr('data-node') + '</div>');
@@ -54,6 +83,12 @@
 
     const bindNodeClickEvent = function (event) {
         event.preventDefault();
+        const nodeName = $(this).attr('data-node');
+
+        if (pieces[nodeName]) {
+            console.log('piece exists on node');
+            return;
+        }
         const [left, top] = this.coords.split(',');
         const dot = $('<img class="dot" src="blue-dot.png">');
         dot.css({
@@ -63,6 +98,7 @@
         });
 
         board.append(dot);
+        pieces[nodeName] = 'blue';
     };
 
     $('area')
