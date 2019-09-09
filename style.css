@@ -5,19 +5,16 @@
     margin: auto;
 }
 
+.node {
+    position: absolute;
+    font-size: 40px;
+    color: greenyellow;
+    margin-left: 20px;
+    margin-top: 15px;
+    z-index: 1001;
+    cursor: pointer;
+}
+
 .dot {
-    width: 69px;
-    height: 69px;
-}
-
-#row1 {
-    width: 800px;
-    height: 800px;
-
-    display: flex;
-    justify-content: space-between;
-}
-map area {
-    border: 1px solid red;
-    background: aqua;
+    position: absolute;
 }

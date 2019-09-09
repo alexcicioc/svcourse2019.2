@@ -6,35 +6,69 @@
 </head>
 <body>
 <div id="board">
-    <img src="moara.png" usemap="#image-map">
+    <img src="moara.png" usemap="#image-map" style="position: absolute;">
 
     <map name="image-map">
-        <area target="" alt="" title="" href="" coords="132,135,34" shape="circle">
-        <area target="" alt="" title="" href="" coords="480,135,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="236,237,33" shape="circle">
-        <area target="" alt="" title="" href="" coords="828,134,34" shape="circle">
-        <area target="" alt="" title="" href="" coords="482,238,36" shape="circle">
-        <area target="" alt="" title="" href="" coords="724,237,33" shape="circle">
-        <area target="" alt="" title="" href="" coords="339,342,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="481,342,33" shape="circle">
-        <area target="" alt="" title="" href="" coords="623,342,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="131,484,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="234,485,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="339,485,34" shape="circle">
-        <area target="" alt="" title="" href="" coords="623,484,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="726,484,36" shape="circle">
-        <area target="" alt="" title="" href="" coords="827,482,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="339,625,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="481,626,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="623,627,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="234,728,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="482,728,36" shape="circle">
-        <area target="" alt="" title="" href="" coords="724,728,34" shape="circle">
-        <area target="" alt="" title="" href="" coords="131,830,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="481,830,35" shape="circle">
-        <area target="" alt="" title="" href="" coords="828,830,34" shape="circle">
+        <area href="#" data-node="A" coords="132,135,34" shape="circle">
+        <area href="#" data-node="B" coords="480,135,35" shape="circle">
+        <area href="#" data-node="C" coords="828,134,34" shape="circle">
+        <area href="#" data-node="D" coords="236,237,33" shape="circle">
+        <area href="#" data-node="E" coords="482,238,36" shape="circle">
+        <area href="#" data-node="F" coords="724,237,33" shape="circle">
+        <area href="#" data-node="G" coords="339,342,35" shape="circle">
+        <area href="#" data-node="H" coords="481,342,33" shape="circle">
+        <area href="#" data-node="I" coords="623,342,35" shape="circle">
+        <area href="#" data-node="J" coords="131,484,35" shape="circle">
+        <area href="#" data-node="K" coords="234,485,35" shape="circle">
+        <area href="#" data-node="L" coords="339,485,34" shape="circle">
+        <area href="#" data-node="M" coords="623,484,35" shape="circle">
+        <area href="#" data-node="N" coords="726,484,36" shape="circle">
+        <area href="#" data-node="O" coords="827,482,35" shape="circle">
+        <area href="#" data-node="P" coords="339,625,35" shape="circle">
+        <area href="#" data-node="R" coords="481,626,35" shape="circle">
+        <area href="#" data-node="S" coords="623,627,35" shape="circle">
+        <area href="#" data-node="T" coords="234,728,35" shape="circle">
+        <area href="#" data-node="U" coords="482,728,36" shape="circle">
+        <area href="#" data-node="V" coords="724,728,34" shape="circle">
+        <area href="#" data-node="W" coords="131,830,35" shape="circle">
+        <area href="#" data-node="X" coords="481,830,35" shape="circle">
+        <area href="#" data-node="Y" coords="828,830,34" shape="circle">
     </map>
 </div>
+<script src="jquery.js"></script>
+<script>
+    const board = $('#board');
+    const displayNodeNames = function () {
+        const element = $(this);
+        const div = $('<div class="node">' + element.attr('data-node') + '</div>');
+        const [left, top] = this.coords.split(',');
+        div.css({
+            top: `${parseInt(top) - 28}px`,
+            left: `${parseInt(left) + 100}px`,
+        }).click(() => {
+            $(`area[data-node="${element.attr('data-node')}"]`).trigger('click');
+        });
+
+        board.append(div);
+    };
+
+    const bindNodeClickEvent = function (event) {
+        event.preventDefault();
+        const [left, top] = this.coords.split(',');
+        const dot = $('<img class="dot" src="blue-dot.png">');
+        dot.css({
+            position: 'absolute',
+            top: `${parseInt(top) - 28}px`,
+            left: `${parseInt(left) + 100}px`,
+        });
+
+        board.append(dot);
+    };
+
+    $('area')
+        .each(displayNodeNames)
+        .click(bindNodeClickEvent);
+</script>
 
 </body>
 </html>
