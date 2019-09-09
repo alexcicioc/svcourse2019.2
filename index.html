@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="piecesOnBoard">Pieces on board <span>0</span></div>
 <div id="board">
     <img src="moara.png" usemap="#image-map" style="position: absolute;">
 
@@ -66,13 +67,19 @@
     };
 
     const pieces = {};
+    let currentTurn = 'blue';
+    const maxNumberOfPieces = 18;
+
+    const getPiecesOnBoard = () => {
+        return Object.keys(pieces).length;
+    };
 
     const displayNodeNames = function () {
         const element = $(this);
         const div = $('<div class="node">' + element.attr('data-node') + '</div>');
         const [left, top] = this.coords.split(',');
         div.css({
-            top: `${parseInt(top) - 28}px`,
+            top: `${parseInt(top) - 14}px`,
             left: `${parseInt(left) + 100}px`,
         }).click(() => {
             $(`area[data-node="${element.attr('data-node')}"]`).trigger('click');
@@ -89,16 +96,24 @@
             console.log('piece exists on node');
             return;
         }
+
+        if (getPiecesOnBoard() >= maxNumberOfPieces) {
+            console.log('cant add more pieces');
+            return;
+        }
+
         const [left, top] = this.coords.split(',');
-        const dot = $('<img class="dot" src="blue-dot.png">');
+        const dot = $(`<img class="dot" src="${currentTurn}-dot.png">`);
         dot.css({
             position: 'absolute',
-            top: `${parseInt(top) - 28}px`,
+            top: `${parseInt(top) - 14}px`,
             left: `${parseInt(left) + 100}px`,
         });
 
         board.append(dot);
-        pieces[nodeName] = 'blue';
+        pieces[nodeName] = currentTurn;
+        currentTurn = currentTurn === 'blue' ? 'red' : 'blue';
+        $('#piecesOnBoard span').html(getPiecesOnBoard());
     };
 
     $('area')
