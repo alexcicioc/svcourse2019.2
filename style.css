@@ -1,8 +1,6 @@
 #board {
-    background-image: url('moara.png');
     width: 960px;
     height: 960px;
-    margin: auto;
 }
 
 .node {
@@ -12,6 +10,7 @@
     padding: 15px 20px;
     z-index: 1001;
     cursor: pointer;
+    float: left;
 }
 
 .dot {
