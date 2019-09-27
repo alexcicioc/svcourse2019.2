@@ -1,129 +1,258 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Moara</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Moara</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="piecesOnBoard">Pieces on board <span>0</span></div>
-<div id="board">
+  <div id="removeMode">Remove Mode: <span>false</span></div>
+  <div id="piecesOnBoard">Pieces on board <span>0</span></div>
+
+  <div id="board">
     <img src="moara.png" usemap="#image-map">
 
     <map name="image-map">
-        <area href="#" data-node="A" coords="132,135,34" shape="circle">
-        <area href="#" data-node="B" coords="480,135,35" shape="circle">
-        <area href="#" data-node="C" coords="828,134,34" shape="circle">
-        <area href="#" data-node="D" coords="236,237,33" shape="circle">
-        <area href="#" data-node="E" coords="482,238,36" shape="circle">
-        <area href="#" data-node="F" coords="724,237,33" shape="circle">
-        <area href="#" data-node="G" coords="339,342,35" shape="circle">
-        <area href="#" data-node="H" coords="481,342,33" shape="circle">
-        <area href="#" data-node="I" coords="623,342,35" shape="circle">
-        <area href="#" data-node="J" coords="131,484,35" shape="circle">
-        <area href="#" data-node="K" coords="234,485,35" shape="circle">
-        <area href="#" data-node="L" coords="339,485,34" shape="circle">
-        <area href="#" data-node="M" coords="623,484,35" shape="circle">
-        <area href="#" data-node="N" coords="726,484,36" shape="circle">
-        <area href="#" data-node="O" coords="827,482,35" shape="circle">
-        <area href="#" data-node="P" coords="339,625,35" shape="circle">
-        <area href="#" data-node="R" coords="481,626,35" shape="circle">
-        <area href="#" data-node="S" coords="623,627,35" shape="circle">
-        <area href="#" data-node="T" coords="234,728,35" shape="circle">
-        <area href="#" data-node="U" coords="482,728,36" shape="circle">
-        <area href="#" data-node="V" coords="724,728,34" shape="circle">
-        <area href="#" data-node="W" coords="131,830,35" shape="circle">
-        <area href="#" data-node="X" coords="481,830,35" shape="circle">
-        <area href="#" data-node="Y" coords="828,830,34" shape="circle">
+      <area href="#" data-node="A" coords="132,135,34" shape="circle">
+      <area href="#" data-node="B" coords="480,135,35" shape="circle">
+      <area href="#" data-node="C" coords="828,134,34" shape="circle">
+      <area href="#" data-node="D" coords="236,237,33" shape="circle">
+      <area href="#" data-node="E" coords="482,238,36" shape="circle">
+      <area href="#" data-node="F" coords="724,237,33" shape="circle">
+      <area href="#" data-node="G" coords="339,342,35" shape="circle">
+      <area href="#" data-node="H" coords="481,342,33" shape="circle">
+      <area href="#" data-node="I" coords="623,342,35" shape="circle">
+      <area href="#" data-node="J" coords="131,484,35" shape="circle">
+      <area href="#" data-node="K" coords="234,485,35" shape="circle">
+      <area href="#" data-node="L" coords="339,485,34" shape="circle">
+      <area href="#" data-node="M" coords="623,484,35" shape="circle">
+      <area href="#" data-node="N" coords="726,484,36" shape="circle">
+      <area href="#" data-node="O" coords="827,482,35" shape="circle">
+      <area href="#" data-node="P" coords="339,625,35" shape="circle">
+      <area href="#" data-node="R" coords="481,626,35" shape="circle">
+      <area href="#" data-node="S" coords="623,627,35" shape="circle">
+      <area href="#" data-node="T" coords="234,728,35" shape="circle">
+      <area href="#" data-node="U" coords="482,728,36" shape="circle">
+      <area href="#" data-node="V" coords="724,728,34" shape="circle">
+      <area href="#" data-node="W" coords="131,830,35" shape="circle">
+      <area href="#" data-node="X" coords="481,830,35" shape="circle">
+      <area href="#" data-node="Y" coords="828,830,34" shape="circle">
     </map>
-</div>
-<script src="jquery.js"></script>
-<script>
+  </div>
+  <script src="jquery.js"></script>
+  <script>
     const board = $('#board');
     const nodes = {
-        A: ['B', 'J'],
-        B: ['A', 'C', 'E'],
-        C: ['B', 'O'],
-        D: ['E', 'K'],
-        E: ['B', 'H', 'D', 'F'],
-        F: ['E', 'N'],
-        G: ['H', 'L'],
-        H: ['E', 'G', 'I'],
-        I: ['H', 'M'],
-        J: ['A', 'W', 'K'],
-        K: ['D', 'T', 'J', 'L'],
-        L: ['G', 'P', 'K'],
-        M: ['I', 'S', 'N'],
-        N: ['F', 'V', 'M', 'O'],
-        O: ['C', 'Y', 'N'],
-        P: ['L', 'R'],
-        R: ['P', 'S', 'U'],
-        S: ['M', 'R'],
-        T: ['K', 'U'],
-        U: ['R', 'X', 'T', 'V'],
-        V: ['U', 'N'],
-        W: ['J', 'X'],
-        X: ['U', 'W', 'Y'],
-        Y: ['X', 'O'],
+      A: ['B', 'J'],
+      B: ['A', 'C', 'E'],
+      C: ['B', 'O'],
+      D: ['E', 'K'],
+      E: ['B', 'H', 'D', 'F'],
+      F: ['E', 'N'],
+      G: ['H', 'L'],
+      H: ['E', 'G', 'I'],
+      I: ['H', 'M'],
+      J: ['A', 'W', 'K'],
+      K: ['D', 'T', 'J', 'L'],
+      L: ['G', 'P', 'K'],
+      M: ['I', 'S', 'N'],
+      N: ['F', 'V', 'M', 'O'],
+      O: ['C', 'Y', 'N'],
+      P: ['L', 'R'],
+      R: ['P', 'S', 'U'],
+      S: ['M', 'R'],
+      T: ['K', 'U'],
+      U: ['R', 'X', 'T', 'V'],
+      V: ['U', 'N'],
+      W: ['J', 'X'],
+      X: ['U', 'W', 'Y'],
+      Y: ['X', 'O'],
     };
+
+    const lines ={
+      A: {"row":['B', 'C'], "column": ['J', 'W']},
+      B: {"row":['A', 'C'], "column": ['E', 'H']},
+      C: {"row":['A', 'B'], "column": ['O', 'Y']},
+      D: {"row":['E', 'F'], "column": ['K', 'T']},
+      E: {"row":['D', 'F'], "column": ['B', 'H']},
+      F: {"row":['D', 'E'], "column": ['N', 'V']},
+      G: {"row":['H', 'I'], "column": ['L', 'P']},
+      H: {"row":['G', 'I'], "column": ['E', 'B']},
+      I: {"row":['G', 'H'], "column": ['M', 'S']},
+      J: {"row":['K', 'L'], "column": ['W', 'A']},
+      K: {"row":['J', 'L'], "column": ['D', 'T']},
+      L: {"row":['K', 'J'], "column": ['G', 'P']},
+      M: {"row":['N', 'O'], "column": ['I', 'S']},
+      N: {"row":['M', 'O'], "column": ['F', 'V']},
+      O: {"row":['M', 'N'], "column": ['C', 'Y']},
+      P: {"row":['R', 'S'], "column": ['G', 'L']},
+      R: {"row":['P', 'S'], "column": ['U', 'X']},
+      S: {"row":['P', 'R'], "column": ['I', 'M']},
+      T: {"row":['U', 'V'], "column": ['K', 'D']},
+      U: {"row":['T', 'V'], "column": ['R', 'X']},
+      V: {"row":['U', 'T'], "column": ['N', 'F']},
+      W: {"row":['X', 'Y'], "column": ['A', 'J']},
+      X: {"row":['W', 'Y'], "column": ['U', 'R']},
+      Y: {"row":['X', 'W'], "column": ['C', 'O']},
+    }
 
     const pieces = {};
     let currentTurn = 'blue';
     const maxNumberOfPieces = 18;
-
+    var freePostions = 18;
+    var removeMode = false;
     const getPiecesOnBoard = () => {
-        return Object.keys(pieces).length;
+      return freePostions//Object.keys(pieces).length;
     };
 
     const displayNodeNames = function (index) {
-        console.log(index);
-        const element = $(this);
-        const div = $('<div class="node">' + element.attr('data-node') + '</div>');
-        const [left, top] = this.coords.split(',');
-        div.css({
-            top: `${parseInt(top) - 14}px`,
-            left: `${parseInt(left) - 28}px`,
-        }).click(() => {
-            $(`area[data-node="${element.attr('data-node')}"]`).trigger('click');
-        });
+      const element = $(this);
+      const div = $('<div class="node" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">' + element.attr('data-node') + '</div>');
+      const [left, top] = this.coords.split(',');
+      div.css({
+        top: `${parseInt(top) - 14}px`,
+        left: `${parseInt(left) - 28}px`,
+      }).click(() => {
+        $(`area[data-node="${element.attr('data-node')}"]`).trigger('click');
+      });
 
-        board.append(div);
+      board.append(div);
     };
 
     const bindNodeClickEvent = function (event) {
-        event.preventDefault();
-        const nodeName = $(this).attr('data-node');
+      event.preventDefault();
+      const nodeName = $(this).attr('data-node');
 
-        if (pieces[nodeName]) {
-            console.log('piece exists on node');
-            return;
+      if(removeMode){
+        if(!removePiece(nodeName)) return;
+        removeMode = false;
+      }else{
+        addPiece.call(this,nodeName);
+      }
+      $('#piecesOnBoard span').html(18 - getPiecesOnBoard());
+      $('#removeMode span').html(removeMode);
+    };
+
+    function addPiece(nodeName){
+      if (pieces[nodeName]) {
+          console.log('piece exists on node');
+          return;
         }
 
-        if (getPiecesOnBoard() >= maxNumberOfPieces) {
-            console.log('cant add more pieces');
-            return;
+        if (getPiecesOnBoard() == 0) {
+          console.log('cant add more pieces');
+          return;
         }
 
         const [left, top] = this.coords.split(',');
-        const dot = $(`<img class="dot" src="${currentTurn}-dot.png">`);
+        const dot = $(`<img id="${nodeName}" class="dot" src="${currentTurn}-dot.png">`);
         dot.css({
-            top: `${parseInt(top) - 10}px`,
-            left: `${parseInt(left) - 27}px`,
+          top: `${parseInt(top) - 10}px`,
+          left: `${parseInt(left) - 27}px`,
         });
 
         board.append(dot);
         pieces[nodeName] = currentTurn;
+        freePostions-=1;
+        removeMode = lineCheck(nodeName);
+
         currentTurn = currentTurn === 'blue' ? 'red' : 'blue';
-        $('#piecesOnBoard span').html(getPiecesOnBoard());
-    };
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      const nodeName = ev.target.innerText;
+      ev.dataTransfer.setData("nodeName", nodeName);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      if (getPiecesOnBoard() > 0) {
+        console.log('add all the pieces');
+        return;
+      }
+
+      const nodeNameTarget = ev.srcElement.innerText;
+      const nodeNameSource = ev.dataTransfer.getData('nodeName');
+
+      if(pieces[nodeNameSource] !== currentTurn){
+        console.log('not your turn!');
+        return;
+      }
+      if (pieces[nodeNameTarget]) {
+        console.log('piece exists on node');
+        return;
+      }else if(nodes[nodeNameSource] && nodes[nodeNameSource].indexOf(nodeNameTarget) === -1){
+        console.log('not your neighbor')
+        return;
+      }
+      const oldImage = document.getElementById(nodeNameSource);
+      if(!oldImage) return;
+
+      oldImage.parentNode.removeChild(oldImage);
+
+      var {left, top} = getComputedStyle(ev.srcElement);
+      var color = pieces[nodeNameSource];
+      const dot = $(`<img id="${nodeNameTarget}" class="dot" src="${color}-dot.png">`);
+      dot.css({top, left});
+
+      board.append(dot);
+      pieces[nodeNameSource] = null;
+      pieces[nodeNameTarget] = color;
+      if(lineCheck(nodeNameTarget)){
+        randomRemove();
+      }
+      currentTurn = color === 'blue' ? 'red' : 'blue';
+      $('#piecesOnBoard span').html(getPiecesOnBoard());
+    }
+
+    function lineCheck(nodeName){
+      const { row, column } = lines[nodeName];
+      if(pieces[nodeName] === pieces[row[0]] &&
+      pieces[nodeName] === pieces[row[1]]){
+        return true;
+      }
+      if(pieces[nodeName] === pieces[column[0]] &&
+      pieces[nodeName] === pieces[column[1]]){
+        return true;
+      }
+      return false;
+    }
+
+    function randomRemove(){
+      toRemove = currentTurn === 'blue' ? 'red' : 'blue';
+      for(piece in pieces){
+        if(pieces[piece] !== currentTurn){
+          if(removePiece(piece,toRemove)){
+            return true;
+          }
+        }
+      }
+    }
+
+    function removePiece(nodeName, color = currentTurn){
+      console.log('removePie',nodeName)
+      if(pieces[nodeName] && pieces[nodeName] === color){
+        if(!lineCheck(nodeName)){
+          const img = document.getElementById(nodeName);
+          console.log(img)
+          if(!img) return;
+          img.parentNode.removeChild(img);
+          pieces[nodeName] = null;
+          return true;
+        }
+      }
+    }
 
     function computerTurn() {
 
     }
 
     $('area')
-        .each(displayNodeNames)
-        .click(bindNodeClickEvent);
-</script>
-
+    .each(displayNodeNames)
+    .click(bindNodeClickEvent);
+  </script>
 </body>
 </html>
