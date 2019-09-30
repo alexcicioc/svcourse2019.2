@@ -5,8 +5,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="removeMode">Remove Mode: <span>false</span></div>
-  <div id="piecesOnBoard">Pieces on board <span>0</span></div>
+  <div>
+    <div style="float:right" id="removeMode">Remove Mode: <span>false</span></div>
+    <div id="piecesOnBoard">Pieces on board <span>0</span></div>
+  </div>
 
   <div id="board">
     <img src="moara.png" usemap="#image-map">
@@ -128,8 +130,12 @@
       }else{
         addPiece.call(this,nodeName);
       }
+      var winner = gameOver();
+        if(winner){
+          alert('Game Over, \n '+ winner +' wins');
+        }
       $('#piecesOnBoard span').html(18 - getPiecesOnBoard());
-      $('#removeMode span').html(removeMode);
+      $('#removeMode span').html(""+removeMode);
     };
 
     function addPiece(nodeName){
@@ -154,7 +160,6 @@
         pieces[nodeName] = currentTurn;
         freePostions-=1;
         removeMode = lineCheck(nodeName);
-
         currentTurn = currentTurn === 'blue' ? 'red' : 'blue';
     }
 
@@ -204,6 +209,10 @@
       if(lineCheck(nodeNameTarget)){
         randomRemove();
       }
+      var winner =gameOver();
+      if(winner){
+        alert('Game Over, \n '+ winner +' wins');
+      }
       currentTurn = color === 'blue' ? 'red' : 'blue';
       $('#piecesOnBoard span').html(getPiecesOnBoard());
     }
@@ -233,17 +242,51 @@
     }
 
     function removePiece(nodeName, color = currentTurn){
-      console.log('removePie',nodeName)
       if(pieces[nodeName] && pieces[nodeName] === color){
         if(!lineCheck(nodeName)){
           const img = document.getElementById(nodeName);
-          console.log(img)
           if(!img) return;
           img.parentNode.removeChild(img);
           pieces[nodeName] = null;
           return true;
         }
       }
+    }
+
+    function gameOver(){
+      if(freePostions) return false;
+
+      const {red,blue} = getNrOfPiecesOnTable();
+      const blueNext = hasNextMoves('blue');
+      const redNext = hasNextMoves('red');
+
+      if(!redNext || red < 3) return 'blue'
+
+      if(!blueNext || blue < 3) return 'red'
+    }
+
+    function hasNextMoves(player){
+      for(let piece in pieces){
+        if(pieces[piece] === player){
+          for(let node of nodes[piece]){
+            if(!pieces[node]){
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    }
+
+    function getNrOfPiecesOnTable(player){
+      var players ={red:0, blue:0};
+      for(let piece in pieces){
+        const player = pieces[piece];
+        if(player){
+          players[player] +=1;
+        }
+      }
+      return players;
     }
 
     function computerTurn() {
